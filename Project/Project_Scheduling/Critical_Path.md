@@ -43,7 +43,7 @@ T2 and T3 both take 3 days after T1 and T4 needs both, so both branches have zer
 
 The forward and backward passes, slack values and critical paths above were recomputed independently from the WBS data and gave the same 26-day duration.
 
-| Item | Manual result | Script result |
+| Item | Manual result | Verified result |
 |---|---|---|
 | Project duration | 26 days | 26 days |
 | Zero-slack tasks | T1, T2, T3, T4, T5, T8, T9, T11 | T1, T2, T3, T4, T5, T8, T9, T11 |
