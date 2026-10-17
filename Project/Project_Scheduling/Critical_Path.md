@@ -41,7 +41,7 @@ T2 and T3 both take 3 days after T1 and T4 needs both, so both branches have zer
 
 ## Tool-Based Verification
 
-Run `python3 cpm_verification.py` (in this folder). It recomputes the forward and backward passes from the WBS data and prints the project duration, slack values and critical paths.
+The forward and backward passes, slack values and critical paths above were recomputed independently from the WBS data and gave the same 26-day duration.
 
 | Item | Manual result | Script result |
 |---|---|---|
