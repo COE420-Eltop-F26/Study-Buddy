@@ -40,9 +40,18 @@
 | UC-19 | View Dashboard | Student | A user views a summary of their study statistics and progress. | Karam Sawas |
 | UC-20 | View Leaderboard | Student | A user views a ranked list of users by weekly study activity. | Karam Sawas |
 
+## Team Consolidated Addition — System Administration
+
+| UC ID | Use Case Name | Primary Actor | Short Description | Contributor |
+|---|---|---|---|---|
+| UC-21 | Monitor System Performance | System Administrator | The System Administrator reviews server, database, and API response-time metrics (e.g., deck loading, dashboard loading, AI generation times) to confirm the system is meeting its performance and reliability targets. | Team (Consolidated Addition) |
+| UC-22 | Monitor OpenAI API Usage and Costs | System Administrator | The System Administrator tracks OpenAI API token usage, request volume, and cost against the project's budget, and reviews failed-generation logs to catch API reliability issues early. | Team (Consolidated Addition) |
+
+These two Use Cases introduce the project's third actor, **System Administrator**, already identified as a stakeholder in Lab 2 ("System/DB Administrator — maintains hosting and database... responsible for monitoring performance and applying updates"). They trace to NFR-06/NFR-11/NFR-16/NFR-17 (performance and scalability targets that must be monitored) and NFR-12/NFR-14 (API reliability and concurrent-usage limits), and to the OpenAI API cost-monitoring strategy described in Lab 2's Economic Feasibility and Risk Register (R1).
+
 ## Team Consolidated Use Cases
 
-All 20 individually contributed Use Cases were reviewed by the team and confirmed to represent distinct, meaningful interactions with the system, with no artificial or duplicate entries. Each Use Case falls within one of the four feature areas established in the Functional Requirements (authentication, deck/card management, AI generation, and study/analytics), keeping the consolidated set organized and consistent with the FRs. No Use Cases were merged or removed during consolidation. The final consolidated list consists of UC-01 through UC-20 as listed above.
+All 22 Use Cases (20 individually contributed plus the 2 System Administration Use Cases added during consolidation) were reviewed by the team and confirmed to represent distinct, meaningful interactions with the system, with no artificial or duplicate entries. Each Use Case falls within one of the five feature areas now established (authentication, deck/card management, AI generation, study/analytics, and system administration), keeping the consolidated set organized and consistent with the FRs and NFRs. The final consolidated list consists of UC-01 through UC-22 as listed above, involving three actors: Student (primary), OpenAI API (secondary, external system), and System Administrator (secondary).
 
 ## Use Case Relationships
 
