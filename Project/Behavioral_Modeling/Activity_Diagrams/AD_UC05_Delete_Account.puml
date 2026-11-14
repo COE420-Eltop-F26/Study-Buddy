@@ -1,0 +1,61 @@
+@startuml AD_UC05_Delete_Account
+skinparam defaultFontName Arial
+skinparam defaultFontSize 15
+skinparam shadowing false
+skinparam ArrowColor #2F3E55
+skinparam ArrowFontSize 14
+skinparam ArrowFontColor #6B4E16
+skinparam ActivityBackgroundColor #FFFFFF
+skinparam ActivityBorderColor #2F4F7F
+skinparam ActivityBorderThickness 1.4
+skinparam ActivityDiamondBackgroundColor #FFF4DC
+skinparam ActivityDiamondBorderColor #A27B2E
+skinparam ActivityDiamondFontSize 14
+skinparam SwimlaneTitleFontSize 16
+skinparam SwimlaneTitleFontStyle bold
+skinparam SwimlaneBorderColor #9DB3D1
+skinparam TitleFontSize 18
+skinparam TitleFontColor #2F4F7F
+skinparam ActivityStartColor #2F3E55
+skinparam ActivityEndColor #2F3E55
+skinparam ActivityBarColor #2F3E55
+title UC-05 Delete Account | Activity Diagram
+|Student|
+start
+:Request account deletion;
+|User|
+:Verify session and account owner;
+if (Authorized?) then ([yes])
+  |Student|
+  :Review permanent deletion warning;
+  if (Deletion confirmed?) then ([no])
+    :Keep account unchanged;
+    stop
+  else ([yes])
+  endif
+  |AccountService|
+  :Begin atomic deletion transaction;
+  |DeckService|
+  :Delete all owned decks and cards (D2);
+  |SpacedRepetitionService|
+  :Delete reviews, schedules and study data (D3);
+  |AuthSession|
+  :Invalidate active session;
+  |User|
+  :Delete user record (D1);
+  |AccountService|
+  if (All deletions succeeded?) then ([yes])
+    :Commit transaction;
+    |Student|
+    :Show deletion confirmation;
+    stop
+  else ([no])
+    |AccountService|
+    :Rollback all changes;
+  endif
+else ([no])
+endif
+|Student|
+:Show error; all original data kept;
+stop
+@enduml

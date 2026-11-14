@@ -1,0 +1,46 @@
+@startuml AD_UC06_Create_Deck
+skinparam defaultFontName Arial
+skinparam defaultFontSize 15
+skinparam shadowing false
+skinparam ArrowColor #2F3E55
+skinparam ArrowFontSize 14
+skinparam ArrowFontColor #6B4E16
+skinparam ActivityBackgroundColor #FFFFFF
+skinparam ActivityBorderColor #2F4F7F
+skinparam ActivityBorderThickness 1.4
+skinparam ActivityDiamondBackgroundColor #FFF4DC
+skinparam ActivityDiamondBorderColor #A27B2E
+skinparam ActivityDiamondFontSize 14
+skinparam SwimlaneTitleFontSize 16
+skinparam SwimlaneTitleFontStyle bold
+skinparam SwimlaneBorderColor #9DB3D1
+skinparam TitleFontSize 18
+skinparam TitleFontColor #2F4F7F
+skinparam ActivityStartColor #2F3E55
+skinparam ActivityEndColor #2F3E55
+skinparam ActivityBarColor #2F3E55
+title UC-06 Create Deck | Activity Diagram
+|Student|
+start
+:Enter deck title and optional description;
+|AuthSession|
+:Check active session;
+if (Session valid?) then ([yes])
+  |DeckService|
+  :Validate fields;
+  if (Title valid?) then ([yes])
+    |User|
+    :Verify owner identity;
+    |Deck|
+    :Create owned deck in D2;
+    |Student|
+    :Display newly created deck;
+    stop
+  else ([no])
+  endif
+else ([no])
+endif
+|Student|
+:Display validation or access error;
+stop
+@enduml

@@ -1,0 +1,57 @@
+@startuml AD_UC17_Rate_Card_Recall
+skinparam defaultFontName Arial
+skinparam defaultFontSize 15
+skinparam shadowing false
+skinparam ArrowColor #2F3E55
+skinparam ArrowFontSize 14
+skinparam ArrowFontColor #6B4E16
+skinparam ActivityBackgroundColor #FFFFFF
+skinparam ActivityBorderColor #2F4F7F
+skinparam ActivityBorderThickness 1.4
+skinparam ActivityDiamondBackgroundColor #FFF4DC
+skinparam ActivityDiamondBorderColor #A27B2E
+skinparam ActivityDiamondFontSize 14
+skinparam SwimlaneTitleFontSize 16
+skinparam SwimlaneTitleFontStyle bold
+skinparam SwimlaneBorderColor #9DB3D1
+skinparam TitleFontSize 18
+skinparam TitleFontColor #2F4F7F
+skinparam ActivityStartColor #2F3E55
+skinparam ActivityEndColor #2F3E55
+skinparam ActivityBarColor #2F3E55
+title UC-17 Rate Card Recall | Activity Diagram
+|Student|
+start
+:Begin session for owned deck;
+|SpacedRepetitionService|
+:Start study session;
+|StudySession|
+:Create study session;
+|SpacedRepetitionService|
+:Get due cards from D2 / D3;
+if (Due card available?) then ([yes])
+  repeat
+    |StudySession|
+    :Display next due card;
+    repeat
+      |Student|
+      :Recall answer and select rating (Again / Hard / Good / Easy);
+      |Flashcard|
+      :Confirm card is owned and due;
+    repeat while (Valid rating and owned due card?) is ([no]) not ([yes])
+    fork
+      |CardSchedule|
+      :Update next review date (D3);
+    fork again
+      |ReviewRecord|
+      :Save review rating and timestamp (D3);
+    end fork
+    |SpacedRepetitionService|
+    :Return review result and next due date;
+  repeat while (More due cards?) is ([yes]) not ([no])
+else ([no])
+endif
+|Student|
+:Show session results / no due cards;
+stop
+@enduml

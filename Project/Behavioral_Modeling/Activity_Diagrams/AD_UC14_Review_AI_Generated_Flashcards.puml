@@ -1,0 +1,55 @@
+@startuml AD_UC14_Review_AI_Generated_Flashcards
+skinparam defaultFontName Arial
+skinparam defaultFontSize 15
+skinparam shadowing false
+skinparam ArrowColor #2F3E55
+skinparam ArrowFontSize 14
+skinparam ArrowFontColor #6B4E16
+skinparam ActivityBackgroundColor #FFFFFF
+skinparam ActivityBorderColor #2F4F7F
+skinparam ActivityBorderThickness 1.4
+skinparam ActivityDiamondBackgroundColor #FFF4DC
+skinparam ActivityDiamondBorderColor #A27B2E
+skinparam ActivityDiamondFontSize 14
+skinparam SwimlaneTitleFontSize 16
+skinparam SwimlaneTitleFontStyle bold
+skinparam SwimlaneBorderColor #9DB3D1
+skinparam TitleFontSize 18
+skinparam TitleFontColor #2F4F7F
+skinparam ActivityStartColor #2F3E55
+skinparam ActivityEndColor #2F3E55
+skinparam ActivityBarColor #2F3E55
+title UC-14 Review AI-Generated Flashcards | Activity Diagram
+|Student|
+start
+:Open candidate review;
+|GenerationService|
+:Request candidates for job;
+|GenerationJob|
+:Retrieve generation candidates (D4);
+repeat
+  |Student|
+  :Inspect next candidate;
+  if (Edit candidate?) then ([yes])
+    :Edit question / answer;
+    |AIGeneratedFlashcard|
+    :Update candidate text;
+  else ([no])
+  endif
+  |Student|
+  if (Student decision?) then ([approve])
+    |AIGeneratedFlashcard|
+    :Mark candidate approved;
+    |GenerationService|
+    :Add approved card to selected deck;
+    |Deck|
+    :Save approved card to owned deck (D2);
+  else ([discard])
+    |AIGeneratedFlashcard|
+    :Discard candidate; do not save;
+  endif
+  |Student|
+repeat while (More candidates?) is ([yes]) not ([no])
+:Show approved-card results;
+stop
+@enduml

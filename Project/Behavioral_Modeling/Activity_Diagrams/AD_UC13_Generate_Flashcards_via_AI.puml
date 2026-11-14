@@ -1,0 +1,61 @@
+@startuml AD_UC13_Generate_Flashcards_via_AI
+skinparam defaultFontName Arial
+skinparam defaultFontSize 15
+skinparam shadowing false
+skinparam ArrowColor #2F3E55
+skinparam ArrowFontSize 14
+skinparam ArrowFontColor #6B4E16
+skinparam ActivityBackgroundColor #FFFFFF
+skinparam ActivityBorderColor #2F4F7F
+skinparam ActivityBorderThickness 1.4
+skinparam ActivityDiamondBackgroundColor #FFF4DC
+skinparam ActivityDiamondBorderColor #A27B2E
+skinparam ActivityDiamondFontSize 14
+skinparam SwimlaneTitleFontSize 16
+skinparam SwimlaneTitleFontStyle bold
+skinparam SwimlaneBorderColor #9DB3D1
+skinparam TitleFontSize 18
+skinparam TitleFontColor #2F4F7F
+skinparam ActivityStartColor #2F3E55
+skinparam ActivityEndColor #2F3E55
+skinparam ActivityBarColor #2F3E55
+title UC-13 Generate Flashcards via AI | Activity Diagram
+|Student|
+start
+:Upload source PDF;
+|PDFFile|
+:Validate PDF type and size <= 20 MB;
+if (Valid upload?) then ([no])
+else ([yes])
+  |GenerationJob|
+  :Create generation job (D4);
+  |GenerationService|
+  :Extract text with PDFBox;
+  if (Readable text?) then ([no])
+  else ([yes])
+    |OpenAIClient|
+    repeat
+      :Send extracted text to OpenAI API;
+      if (Generation succeeded?) then ([API error])
+        |GenerationJob|
+        :Mark job failed (D4);
+        |Student|
+        :Show error and retry option (PDF kept);
+      else ([success])
+        |GenerationJob|
+        :Mark job completed with candidates (D4);
+        |GenerationService|
+        :Return candidate flashcards;
+        |Student|
+        :Show candidate Q/A (not yet saved);
+        stop
+      endif
+    repeat while (Retry?) is ([yes]) not ([no])
+    :Stop without saving cards;
+    stop
+  endif
+endif
+|Student|
+:Show upload or extraction error;
+stop
+@enduml
